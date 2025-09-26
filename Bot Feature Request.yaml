@@ -1,0 +1,119 @@
+name: Bot Feature Request
+description: Задачи по разработке Telegram-бота с подпиской через ЮKassa
+title: "[Feature] "
+labels: ["enhancement", "todo"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Чеклист по разработке бота
+        Отмечай выполненные задачи галочками ✅
+        
+  - type: checkboxes
+    id: preparation
+    attributes:
+      label: 📦 Подготовка окружения
+      options:
+        - label: Создать бота через @BotFather, получить токен
+        - label: Добавить бота в закрытый канал как администратора
+        - label: Зарегистрировать магазин в ЮKassa и получить ключи (sandbox)
+        - label: Настроить Python окружение и зависимости
+        - label: Подключить ngrok для локальной разработки
+
+  - type: checkboxes
+    id: database
+    attributes:
+      label: 🗄️ База данных
+      options:
+        - label: Таблица `users`
+        - label: Таблица `payments`
+        - label: Таблица `subscriptions`
+        - label: Таблица `invite_links`
+
+  - type: checkboxes
+    id: commands
+    attributes:
+      label: 🤖 Команды бота
+      options:
+        - label: `/start` — регистрация пользователя
+        - label: `/subscribe` — выбор тарифа и ссылка на оплату
+        - label: `/status` — проверка подписки
+        - label: `/help` — справка
+
+  - type: checkboxes
+    id: payments
+    attributes:
+      label: 💳 Оплата через ЮKassa
+      options:
+        - label: Endpoint `/create_payment`
+        - label: Отправка `confirmation_url` пользователю
+        - label: Запись платежа со статусом `pending`
+
+  - type: checkboxes
+    id: webhooks
+    attributes:
+      label: 📬 Вебхуки ЮKassa
+      options:
+        - label: Endpoint `/webhook/yookassa`
+        - label: Проверка подписи webhook
+        - label: Обработка `payment.succeeded` (создание подписки + invite link)
+        - label: Обработка `payment.canceled`
+
+  - type: checkboxes
+    id: channel
+    attributes:
+      label: 🔗 Доступ к каналу
+      options:
+        - label: Создание одноразовой invite link
+        - label: Отправка ссылки пользователю
+        - label: (Опция) approve join requests
+
+  - type: checkboxes
+    id: subscriptions
+    attributes:
+      label: 🕒 Контроль подписок
+      options:
+        - label: Настроить APScheduler
+        - label: Проверка истёкших подписок
+        - label: Удаление пользователя из канала
+        - label: Уведомление пользователя об окончании
+
+  - type: checkboxes
+    id: receipts
+    attributes:
+      label: 🧾 Чеки (54-ФЗ)
+      options:
+        - label: Сбор e-mail / телефона у пользователя
+        - label: Запрос `POST /v3/receipts` в ЮKassa
+        - label: Тестирование отправки чеков в sandbox
+
+  - type: checkboxes
+    id: security
+    attributes:
+      label: 🔐 Безопасность
+      options:
+        - label: Хранение ключей в `.env`
+        - label: HTTPS для webhook
+        - label: Проверка подписи webhook
+        - label: Минимизация персональных данных
+        - label: Логирование без чувствительных данных
+
+  - type: checkboxes
+    id: deploy
+    attributes:
+      label: 🚀 Деплой
+      options:
+        - label: Настроить запуск uvicorn (systemd или docker)
+        - label: Reverse proxy (nginx → uvicorn)
+        - label: Настроить HTTPS (Let’s Encrypt)
+        - label: Автоперезапуск бота
+
+  - type: checkboxes
+    id: testing
+    attributes:
+      label: 🧪 Тестирование
+      options:
+        - label: Сценарий: подписка → оплата → доступ
+        - label: Проверка отказа платежа
+        - label: Проверка истечения подписки
+        - label: Проверка отправки чеков
